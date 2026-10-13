@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10172a">
+  <title>iGralPaz | Compra de iPhones</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#151d31;--line:#2a3650;--text:#f4f6fb;--muted:#a9b4c9;--accent:#23c46e}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;padding:24px 14px;background:radial-gradient(ellipse at top,#172143,var(--bg) 60%);font:16px/1.5 system-ui,sans-serif;color:var(--text)}
+    main{max-width:680px;margin:auto}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,5vw,34px);box-shadow:0 24px 70px #0005}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+    .brand-mark{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(140deg,#38d889,#18a95b);color:#062817;font-weight:850;font-size:17px;letter-spacing:-1px;box-shadow:0 5px 18px #23c46e35}
+    .brand-name{font-size:25px;line-height:1.15;letter-spacing:-.6px;font-weight:800;margin:0}
+    .brand-tag{font-size:13px;color:var(--muted);margin:3px 0 0}
+    .hero-title{font-size:clamp(22px,4vw,28px);line-height:1.2;letter-spacing:-.4px;margin:0 0 8px}
+    .muted,.hint{color:var(--muted)}
+    h2{font-size:19px;margin:24px 0 12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{margin:0 0 15px}
+    label{display:block;font-weight:600;margin:0 0 6px}
+    input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1425;color:var(--text);font:inherit}
+    textarea{min-height:88px;resize:vertical}
+    .checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .check{display:flex;align-items:flex-start;gap:9px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#0d1425}
+    .check input{width:auto;margin:5px 0 0}
+    .check label{font-weight:500;margin:0}
+    .photos{padding:14px;border:1px dashed #586783;border-radius:10px}
+    .hint{font-size:13px;margin:7px 0 0}
+    .callout{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1425;font-size:14px}
+    .btn{width:100%;border:0;border-radius:11px;background:var(--accent);color:#052313;font-weight:750;font-size:16px;padding:14px;margin-top:16px;cursor:pointer}
+    .error{color:#ffb8b8;min-height:22px}
+    .bot-trap{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin:16px 8px}
+    @media(max-width:540px){.grid,.checks{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card welcome" id="welcome">
+    <header class="brand"><span class="brand-mark" aria-hidden="true">iG</span><div><p class="brand-name">iGralPaz</p><p class="brand-tag">Córdoba</p></div></header>
+    <h1 class="hero-title">¿Pensás vender tu iPhone?</h1>
+    <p class="muted">Somos iGralPaz, estamos en Córdoba y estamos evaluando la compra de tu equipo Apple. Contanos sobre el equipo y cuánto esperás recibir; revisaremos la información y nos contactaremos con vos.</p>
+    <button class="btn" id="start-form" type="button">Comenzar evaluación</button>
+  </section>
+
+  <section class="card form-view" id="form-view" hidden>
+    <header class="brand"><span class="brand-mark" aria-hidden="true">iG</span><div><p class="brand-name">iGralPaz</p><p class="brand-tag">Compra y evaluación de iPhones usados</p></div></header>
+    <h1 class="hero-title">Vendé tu iPhone</h1>
+    <p class="muted">Contanos sobre tu iPhone y descubrí cuánto podrías recibir. Completá sus datos para que podamos evaluarlo y acercarte una propuesta.</p>
+    <form id="lead-form">
+      <h2>Datos del equipo</h2>
+      <div class="grid">
+        <div class="field"><label for="model">Modelo</label><select id="model" required><option value="">Elegí el modelo</option></select></div>
+        <div class="field"><label for="storage">Almacenamiento</label><select id="storage" required disabled><option>Primero elegí el modelo</option></select></div>
+      </div>
+      <div class="grid">
+        <div class="field"><label for="battery">Salud de batería (%)</label><input id="battery" type="number" min="1" max="100" placeholder="Ej.: 92" required></div>
+        <div class="field"><label for="color">Color (opcional)</label><input id="color" maxlength="40" placeholder="Ej.: negro"></div>
+      </div>
+      <div class="field"><label>¿Tiene alguna falla?</label><div class="checks" id="issues">
+        <div class="check"><input type="checkbox" id="screen" value="Pantalla rota o con fallas"><label for="screen">Pantalla</label></div>
+        <div class="check"><input type="checkbox" id="body" value="Carcasa o marco dañado"><label for="body">Carcasa o marco</label></div>
+        <div class="check"><input type="checkbox" id="camera" value="Cámara o lente con fallas"><label for="camera">Cámara o lente</label></div>
+        <div class="check"><input type="checkbox" id="faceid" value="Face ID, botones u otra función"><label for="faceid">Face ID, botones u otra función</label></div>
+        <div class="check"><input type="checkbox" id="other" value="Otra falla"><label for="other">Otra falla</label></div>
+        <div class="check"><input type="checkbox" id="none" value="Sin fallas"><label for="none">No tiene fallas</label></div>
+      </div></div>
+      <div class="grid">
+        <div class="field"><label for="icloud">¿Está libre de iCloud/Buscar?</label><select id="icloud" required><option value="">Elegí</option><option>Sí</option><option>No</option><option>No sé</option></select></div>
+        <div class="field"><label for="unlocked">¿Está liberado para cualquier compañía?</label><select id="unlocked" required><option value="">Elegí</option><option>Sí</option><option>No</option><option>No sé</option></select></div>
+      </div>
+      <div class="field"><label for="details">Otros detalles</label><textarea id="details" maxlength="1200" placeholder="Reparaciones, piezas cambiadas, detalles estéticos…"></textarea></div>
+      <div class="field"><label>Fotos del equipo</label><div class="photos"><p class="hint" style="margin:0 0 8px;color:var(--text)">Cuando se abra WhatsApp, adjuntá fotos claras de:</p><ul class="hint" style="padding-left:20px"><li>El frente, con la pantalla encendida y un fondo claro (por ejemplo, la pantalla de mensajes).</li><li>La parte trasera y todos los laterales.</li><li>El módulo de cámaras, de cerca.</li></ul><p class="hint">Las fotos se envían directamente por WhatsApp; esta página no las carga.</p></div></div>
+
+      <h2>Tus datos de contacto</h2>
+      <div class="field"><label for="name">Nombre y apellido</label><input id="name" autocomplete="name" maxlength="100" required></div>
+      <div class="grid">
+        <div class="field"><label for="email">Correo</label><input id="email" type="email" autocomplete="email" maxlength="254" required></div>
+        <div class="field"><label for="phone">Tu celular / WhatsApp</label><input id="phone" type="tel" autocomplete="tel" maxlength="30" required></div>
+      </div>
+      <div class="field"><label for="timing">¿Cuándo te gustaría venderlo? (opcional)</label><select id="timing"><option value="">Prefiero conversarlo</option><option>Lo antes posible</option><option>Durante esta semana</option><option>En las próximas semanas</option><option>Estoy averiguando, no tengo apuro</option></select><p class="hint">Esto nos ayuda a organizar la evaluación.</p></div>
+      <h2>Tu expectativa de precio</h2>
+      <div class="grid">
+        <div class="field"><label for="price">¿Cuánto te gustaría recibir?</label><input id="price" type="number" min="1" step="any" inputmode="decimal" placeholder="Ej.: 500" required></div>
+        <div class="field"><label for="currency">Moneda</label><select id="currency" required><option value="ARS">Pesos argentinos (ARS)</option><option value="USD">Dólares (USD)</option></select></div>
+      </div>
+      <p class="hint">Escribí el importe que esperás recibir. La oferta final se conversa después de revisar el equipo.</p>
+      <div class="check"><input id="consent" type="checkbox" required><label for="consent">Acepto que me contacten para evaluar el equipo y coordinar una posible compra.</label></div>
+      <p class="callout" id="decision">Tu expectativa de precio se enviará junto con los datos del equipo. La oferta final se conversa personalmente después de revisar la información y las fotos; no se calcula un precio automático.</p>
+      <div class="bot-trap" aria-hidden="true"><label for="website">Dejá este campo vacío</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="error" id="error" role="alert"></p>
+      <button class="btn" type="submit">Enviar solicitud por WhatsApp</button>
+    </form>
+  </section>
+  <p class="footer" id="form-footer" hidden>Al tocar el botón se abrirá WhatsApp. Revisá el mensaje, adjuntá las fotos y tocá Enviar.</p>
+</main>
+<script>
+  const OWNER_WHATSAPP = "5492645566889";
+  const MODEL_STORAGE={
+    "iPhone 13 mini":["128 GB","256 GB","512 GB"],"iPhone 13":["128 GB","256 GB","512 GB"],"iPhone 13 Pro":["128 GB","256 GB","512 GB","1 TB"],"iPhone 13 Pro Max":["128 GB","256 GB","512 GB","1 TB"],
+    "iPhone 14":["128 GB","256 GB","512 GB"],"iPhone 14 Plus":["128 GB","256 GB","512 GB"],"iPhone 14 Pro":["128 GB","256 GB","512 GB","1 TB"],"iPhone 14 Pro Max":["128 GB","256 GB","512 GB","1 TB"],
+    "iPhone 15":["128 GB","256 GB","512 GB"],"iPhone 15 Plus":["128 GB","256 GB","512 GB"],"iPhone 15 Pro":["128 GB","256 GB","512 GB","1 TB"],"iPhone 15 Pro Max":["256 GB","512 GB","1 TB"],
+    "iPhone 16":["128 GB","256 GB","512 GB"],"iPhone 16 Plus":["128 GB","256 GB","512 GB"],"iPhone 16e":["128 GB","256 GB","512 GB"],"iPhone 16 Pro":["128 GB","256 GB","512 GB","1 TB"],"iPhone 16 Pro Max":["256 GB","512 GB","1 TB"],
+    "iPhone 17":["256 GB","512 GB"],"iPhone 17e":["256 GB","512 GB"],"iPhone Air":["256 GB","512 GB","1 TB"],"iPhone 17 Pro":["256 GB","512 GB","1 TB"],"iPhone 17 Pro Max":["256 GB","512 GB","1 TB","2 TB"],"iPhone SE (3.ª generación)":["64 GB","128 GB","256 GB"]
+  };
+  const $=id=>document.getElementById(id);
+  const model=$("model"), storage=$("storage"), error=$("error");
+  $("start-form").addEventListener("click",()=>{$("welcome").hidden=true;$("form-view").hidden=false;$("form-footer").hidden=false;window.scrollTo({top:0,behavior:"smooth"})});
+  Object.keys(MODEL_STORAGE).forEach(name=>{const o=document.createElement("option");o.value=name;o.textContent=name;model.append(o)});
+  model.addEventListener("change",()=>{storage.innerHTML='<option value="">Elegí la capacidad</option>';(MODEL_STORAGE[model.value]||[]).forEach(cap=>{const o=document.createElement("option");o.value=cap;o.textContent=cap;storage.append(o)});storage.disabled=!model.value});
+  document.querySelectorAll("#issues input").forEach(box=>box.addEventListener("change",()=>{if(box.id==="none"&&box.checked)document.querySelectorAll("#issues input:not(#none)").forEach(x=>x.checked=false);if(box.id!=="none"&&box.checked)$("none").checked=false}));
+  $("battery").addEventListener("input",updateDecision);
+  document.querySelectorAll("#issues input,#icloud").forEach(el=>el.addEventListener("change",updateDecision));
+  function updateDecision(){const battery=Number($("battery").value);const issues=[...document.querySelectorAll("#issues input:not(#none):checked")];const blocked=$("icloud").value==="No";let note="Tu expectativa de precio se enviará junto con los datos del equipo. La oferta final se conversa personalmente después de revisar la información y las fotos; no se calcula un precio automático.";if(battery>0&&battery<90)note="Aviso: batería menor a 90%. Tu expectativa se enviará, pero Agustín revisará la solicitud y se comunicará personalmente con una oferta.";else if(issues.length||blocked)note="Aviso: el equipo tiene una falla o está bloqueado. Tu expectativa se enviará para revisión personal; no se genera una oferta automática.";$("decision").textContent=note}
+  const formOpenedAt=Date.now();
+  document.querySelector("#lead-form").addEventListener("submit",event=>{event.preventDefault();error.textContent="";if(!event.currentTarget.reportValidity())return;if($("website").value.trim()){error.textContent="No se pudo enviar la solicitud. Revisá los datos e intentá nuevamente.";return}if(Date.now()-formOpenedAt<3000){error.textContent="Esperá un momento y volvé a enviar la solicitud.";return}if(OWNER_WHATSAPP==="PONER_TU_NUMERO"){error.textContent="Falta configurar tu número de WhatsApp en el archivo.";return}const issues=[...document.querySelectorAll("#issues input:checked")].map(x=>x.value);if(!issues.length){error.textContent="Indicá si tiene fallas o marcá que no tiene.";return}
+    const info=["SOLICITUD PARA VENDER IPHONE","Equipo: "+model.value+" · "+storage.value,"Batería: "+$("battery").value+"%","Fallas: "+issues.join(", "),"iCloud/Buscar libre: "+$("icloud").value,"Liberado: "+$("unlocked").value,"Color: "+($("color").value||"No indicado"),"Detalles: "+($("details").value||"Ninguno"),"Plazo para vender: "+($("timing").value||"Prefiere conversarlo"),"Expectativa de precio: "+$("currency").value+" "+$("price").value,"","Nombre: "+$("name").value,"Correo: "+$("email").value,"WhatsApp: "+$("phone").value,"Fotos: las adjunto en este chat (frente con pantalla encendida sobre fondo claro, parte trasera, laterales y cámaras de cerca).","","Por favor, revisar y contactarme personalmente con una oferta. Mi expectativa de precio no es una cotización automática."].join("\n");
+    window.location.href="https://wa.me/"+OWNER_WHATSAPP+"?text="+encodeURIComponent(info);
+  });
+</script>
+</body>
+</html>
